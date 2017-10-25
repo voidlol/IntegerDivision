@@ -14,6 +14,9 @@ public class LongDivision {
 		int dividendLength = (int) (Math.log10(dividend) + 1);
 		int dividerLength = (int) (Math.log10(divider) + 1);
 		int result = dividend / divider;
+		if (divider < 0) {
+			divider = -divider;
+		}
 		System.out.println(" " + dividend + "|" + divider);
 		int currentPow = dividendLength - dividerLength;
 		int startDigit = (int) (dividend / Math.pow(10, currentPow));
