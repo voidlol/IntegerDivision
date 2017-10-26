@@ -3,20 +3,20 @@ package integerDivision;
 public class LongDivision {
 	
 	public String divide(int dividend, int divider) {
-		StringBuilder output = new StringBuilder();
 		if (divider == 0) {
 			return "Can't divide by ZERO!";
 		}
 		if (divider > dividend) {
 			return "Only integer division is supported.";
 		}
-		int dividendLength = (int) (Math.log10(dividend) + 1);
-		int dividerLength = (int) (Math.log10(divider) + 1);
+		StringBuilder output = new StringBuilder();
 		int result = dividend / divider;
+		output.append(" ").append(dividend).append("|").append(divider).append("\n");
 		if (divider < 0) {
 			divider = -divider;
 		}
-		output.append(" ").append(dividend).append("|").append(divider).append("\n");
+		int dividendLength = (int) (Math.log10(dividend) + 1);
+		int dividerLength = (int) (Math.log10(divider) + 1);
 		int currentPow = dividendLength - dividerLength;
 		int startDigit = (int) (dividend / Math.pow(10, currentPow));
 		int currentDigit = 0;
