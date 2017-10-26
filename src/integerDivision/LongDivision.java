@@ -2,14 +2,13 @@ package integerDivision;
 
 public class LongDivision {
 	
-	public void divide(int dividend, int divider) {
+	public String divide(int dividend, int divider) {
+		StringBuilder output = new StringBuilder();
 		if (divider == 0) {
-			System.out.println("Can't divide by ZERO!");
-			return;
+			return "Can't divide by ZERO!";
 		}
 		if (divider > dividend) {
-			System.out.println("Only integer division is supported.");
-			return;
+			return "Only integer division is supported.";
 		}
 		int dividendLength = (int) (Math.log10(dividend) + 1);
 		int dividerLength = (int) (Math.log10(divider) + 1);
@@ -17,7 +16,7 @@ public class LongDivision {
 		if (divider < 0) {
 			divider = -divider;
 		}
-		System.out.println(" " + dividend + "|" + divider);
+		output.append(" ").append(dividend).append("|").append(divider).append("\n");
 		int currentPow = dividendLength - dividerLength;
 		int startDigit = (int) (dividend / Math.pow(10, currentPow));
 		int currentDigit = 0;
@@ -29,21 +28,21 @@ public class LongDivision {
 		}
 		multiply = startDigit / divider * divider;
 		difference = startDigit - multiply;
-		printSpacesNTimes(calculateOffset(startDigit, multiply) - 1);
-		System.out.print("-" + multiply);
-		printSpacesNTimes(dividendLength  - 1 - (int)Math.log10(startDigit));
-		System.out.print("|" + result + "\n");
+		printSpacesNTimes(calculateOffset(startDigit, multiply) - 1, output);
+		output.append("-").append(multiply);
+		printSpacesNTimes(dividendLength  - 1 - (int)Math.log10(startDigit), output);
+		output.append("|").append(result).append("\n");
 		
 		while (currentPow > 0 ) {
 			currentPow--;
 			currentDigit = (int)(dividend / Math.pow(10, currentPow));
 			startDigit = difference * 10 + currentDigit % 10; 
 			if (startDigit >= divider) {
-				printSpacesNTimes(calculateOffset(currentDigit, difference));
-				System.out.print(startDigit + "\n");
+				printSpacesNTimes(calculateOffset(currentDigit, difference), output);
+				output.append(startDigit).append("\n");
 				multiply = startDigit / divider * divider;
-				printSpacesNTimes(calculateOffset(currentDigit, multiply));
-				System.out.print("-" + multiply + "\n");
+				printSpacesNTimes(calculateOffset(currentDigit, multiply), output);
+				output.append("-").append(multiply).append("\n");
 				difference = startDigit - multiply;
 			}
 			else {
@@ -51,19 +50,20 @@ public class LongDivision {
 			}
 		}
 		if (difference != 0) {
-			printSpacesNTimes(1);
+			printSpacesNTimes(1, output);
 		}
-		printSpacesNTimes(calculateOffset(dividend, difference));
-		System.out.print(difference + "\n");
+		printSpacesNTimes(calculateOffset(dividend, difference), output);
+		output.append(difference).append("\n");
+		return output.toString();
 	}
 	
-	public void printSpacesNTimes(int n) {
+	private void printSpacesNTimes(int n, StringBuilder print) {
 		for (int i = 0; i < n; i++) {
-			System.out.print(" ");
+			print.append(" ");
 		}
 	}
 	
-	public int calculateOffset(int biggerNumber, int smallerNumber) {
+	private int calculateOffset(int biggerNumber, int smallerNumber) {
 		if (smallerNumber == 0) {
 			return (int)Math.log10(biggerNumber) + 1;
 		}
