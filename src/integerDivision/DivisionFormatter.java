@@ -9,6 +9,9 @@ public class DivisionFormatter {
 	String result;
 	
 	public DivisionFormatter(DivisionData divisionData) {
+		if (divisionData == null) {
+			return;
+		}
 		this.divider = "" + divisionData.divider;
 		this.result = divisionData.result;
 		this.dividend = "" + divisionData.dividend;
@@ -23,10 +26,18 @@ public class DivisionFormatter {
 	}
 	
 	public String formatData() {
+		if (this.divider == null) {
+			return "Can't divide by ZERO";
+		}
 		StringBuilder output = new StringBuilder();
 		output.append(" " + this.dividend + "|" + this.divider + "\n");
 		output.append("-" + this.subtrahend[0]).append(addSpacesNTimes(dividend.length() - this.subtrahend[0].length()));
-		output.append("|" + this.result + "\n");
+		if (this.divider.startsWith("-")) {
+			output.append("|-" + this.result + "\n");
+		}
+		else {
+			output.append("|" + this.result + "\n");
+		}
 		int spacesCount = 0;
 		int iterator;
 		for (iterator = 1; iterator < this.subtrahend.length; iterator++) {
