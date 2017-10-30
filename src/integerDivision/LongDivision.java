@@ -11,14 +11,14 @@ public class LongDivision {
 		DivisionData divisionData = new DivisionData(dividend, divider);
 		int offset = 0;
 		int resultDigit = dividend / divider;
-		while (Math.abs(resultDigit) > NUMERAL_SYSTEM) {
+		while (resultDigit > NUMERAL_SYSTEM) {
 			divider *= NUMERAL_SYSTEM;
 			resultDigit = dividend / divider;
 			offset++;
 		}
-		divisionData.setFirstDigit(dividend, offset);
+		divisionData.setFirstScale(dividend, offset);
 		while (offset > 0) {
-			divisionData.addResultDigit(Math.abs(resultDigit));
+			divisionData.addResultDigit(resultDigit);
 			divisionData.addSubtrahend(resultDigit * divider, offset);
 			dividend -= resultDigit * divider;
 			divider /= NUMERAL_SYSTEM;
@@ -28,7 +28,7 @@ public class LongDivision {
 
 		}
 		resultDigit = dividend / divider;
-		divisionData.addResultDigit(Math.abs(resultDigit));
+		divisionData.addResultDigit(resultDigit);
 		divisionData.addSubtrahend(resultDigit * divider, offset);
 		divisionData.addDifference(dividend - resultDigit * divider, offset);
 		return divisionData;

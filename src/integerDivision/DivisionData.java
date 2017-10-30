@@ -6,7 +6,7 @@ public class DivisionData {
 	String result = "";
 	int divider;
 	int dividend;
-	int firstDigit;
+	int firstScale;
 	ArrayList<Integer> subtrahend = new ArrayList<Integer>();
 	ArrayList<Integer> difference = new ArrayList<Integer>();
 	private static final int NUMERAL_SYSTEM = 10;
@@ -16,8 +16,8 @@ public class DivisionData {
 		this.divider = divider;
 	}
 	
-	public void setFirstDigit(int firstDigit, int offset) {
-		this.firstDigit = firstDigit / getDigit(offset);
+	public void setFirstScale(int firstScale, int offset) {
+		this.firstScale = firstScale / calculateScale(offset);
 	}
 	
 	public void addResultDigit(int digit) {
@@ -25,14 +25,14 @@ public class DivisionData {
 	}
 	
 	public void addSubtrahend(int subtrahend, int offset) {
-		this.subtrahend.add(subtrahend / getDigit(offset));
+		this.subtrahend.add(subtrahend / calculateScale(offset));
 	}
 	
 	public void addDifference(int difference, int offset) {
-		this.difference.add(difference / getDigit(offset));
+		this.difference.add(difference / calculateScale(offset));
 	}
 	
-	private int getDigit(int offset) {
+	private int calculateScale(int offset) {
 		return (int) Math.pow(NUMERAL_SYSTEM, offset);
 	}
 }
