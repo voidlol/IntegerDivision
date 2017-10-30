@@ -4,9 +4,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		LongDivision division = new LongDivision();
-		DivisionData divisionData = division.divide(876, -14);
-		DivisionFormatter divisionFormatter = new DivisionFormatter(divisionData);
-		System.out.println(divisionFormatter.formatData());
+		DivisionData divisionData = division.divide(12135, 16);
+		DivisionFormatter divisionFormatter = new DivisionFormatter();
+		System.out.println(divisionFormatter.formatData(divisionData));
 	}
 
 }

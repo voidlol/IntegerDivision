@@ -2,57 +2,53 @@ package integerDivision;
 
 public class DivisionFormatter {
 	
-	String divider;
-	String[] difference;
-	String[] subtrahend;
-	String dividend;
-	String result;
-	
-	public DivisionFormatter(DivisionData divisionData) {
+	public String formatData(DivisionData divisionData) {
 		if (divisionData == null) {
-			return;
+			return "Can't divide by zero";
 		}
-		this.divider = "" + divisionData.divider;
-		this.result = divisionData.result;
-		this.dividend = "" + divisionData.dividend;
-		this.difference = new String[divisionData.difference.size()];
-		this.subtrahend = new String[divisionData.subtrahend.size()];
+		String divider = null;
+		String[] difference = null;
+		String[] subtrahend = null;
+		String dividend = null;
+		String result = null;
+		String firstDigit = null;
+		divider = "" + divisionData.divider;
+		firstDigit = "" + divisionData.firstDigit;
+		result = divisionData.result;
+		dividend = "" + divisionData.dividend;
+		difference = new String[divisionData.difference.size()];
+		subtrahend = new String[divisionData.subtrahend.size()];
 		for (int i = 0; i < difference.length; i++) {
-			this.difference[i] = Integer.toString(divisionData.difference.get(i));
+			difference[i] = Integer.toString(Math.abs(divisionData.difference.get(i)));
 		}
 		for (int i = 0; i < subtrahend.length; i++) {
-			this.subtrahend[i] = Integer.toString(divisionData.subtrahend.get(i));
-		}
-	}
-	
-	public String formatData() {
-		if (this.divider == null) {
-			return "Can't divide by ZERO";
+			subtrahend[i] = Integer.toString(Math.abs(divisionData.subtrahend.get(i)));
 		}
 		StringBuilder output = new StringBuilder();
-		output.append(" " + this.dividend + "|" + this.divider + "\n");
-		output.append("-" + this.subtrahend[0]).append(addSpacesNTimes(dividend.length() - this.subtrahend[0].length()));
-		if (this.divider.startsWith("-")) {
-			output.append("|-" + this.result + "\n");
+		int spacesCount = firstDigit.length() - subtrahend[0].length();
+		output.append(" " + dividend + "|" + divider + "\n");
+		output.append(getStringWithNSpaces(spacesCount));
+		output.append("-" + subtrahend[0]).append(getStringWithNSpaces(dividend.length() - subtrahend[0].length() - spacesCount));
+		if (divider.startsWith("-")) {
+			output.append("|-" + result + "\n");
 		}
 		else {
-			output.append("|" + this.result + "\n");
+			output.append("|" + result + "\n");
 		}
-		int spacesCount = 0;
 		int iterator;
-		for (iterator = 1; iterator < this.subtrahend.length; iterator++) {
-			spacesCount += this.subtrahend[iterator - 1].length() - this.difference[iterator - 1].length() + 1;
-			output.append(addSpacesNTimes(spacesCount + 1));
-			output.append(this.difference[iterator - 1] + "\n");
-			output.append(addSpacesNTimes(spacesCount + this.difference[iterator - 1].length() - this.subtrahend[iterator].length()));
-			output.append("-" + this.subtrahend[iterator] + "\n");
+		for (iterator = 1; iterator < subtrahend.length; iterator++) {
+			spacesCount += subtrahend[iterator - 1].length() - difference[iterator - 1].length() + 1;
+			output.append(getStringWithNSpaces(spacesCount + 1));
+			output.append(difference[iterator - 1] + "\n");
+			output.append(getStringWithNSpaces(spacesCount + difference[iterator - 1].length() - subtrahend[iterator].length()));
+			output.append("-" + subtrahend[iterator] + "\n");
 		}
-		spacesCount += this.subtrahend[iterator - 1].length() - this.difference[iterator - 1].length() + 1;
-		output.append(addSpacesNTimes(spacesCount)).append(this.difference[iterator - 1]);
+		spacesCount = dividend.length() - difference[iterator - 1].length() + 1;
+		output.append(getStringWithNSpaces(spacesCount)).append(difference[iterator - 1]);
 		return output.toString();
 	}
 	
-	private String addSpacesNTimes(int n) {
+	private String getStringWithNSpaces(int n) {
 		String output = "";
 		for (int i = 0; i < n; i++) {
 			output += " ";
