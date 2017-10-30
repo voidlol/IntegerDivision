@@ -2,21 +2,35 @@ package integerDivision;
 
 public class LongDivision {
 	
-	public void divide(int dividend, int divider) {
-		int result = dividend / divider;
-		int dividendLength = (int) (Math.log10(dividend) + 1);
-		int resultLength = (int) (Math.log10(result) + 1);
-		int currentDigit = (int) (dividend % Math.pow(10, dividendLength - 1));
-		System.out.println(dividend + "|" + divider);
-		printSpacesNTimes(dividendLength);
-		System.out.print("|" + result + "\n");
-		System.out.println(currentDigit);
-	}
+	private static final int NUMERAL_SYSTEM = 10;
 	
-	public void printSpacesNTimes(int n) {
-		for (int i = 0; i < n; i++) {
-			System.out.print(" ");
+	public DivisionData divide(int dividend, int divider) {
+		if (divider == 0) {
+			return null;
 		}
+		DivisionData divisionData = new DivisionData(dividend, divider);
+		int offset = 0;
+		int resultDigit = dividend / divider;
+		while (resultDigit > NUMERAL_SYSTEM) {
+			divider *= NUMERAL_SYSTEM;
+			resultDigit = dividend / divider;
+			offset++;
+		}
+		divisionData.setFirstScale(dividend, offset);
+		while (offset > 0) {
+			divisionData.addResultDigit(resultDigit);
+			divisionData.addSubtrahend(resultDigit * divider, offset);
+			dividend -= resultDigit * divider;
+			divider /= NUMERAL_SYSTEM;
+			resultDigit = dividend / divider;
+			offset--;
+			divisionData.addDifference(dividend, offset);
+
+		}
+		resultDigit = dividend / divider;
+		divisionData.addResultDigit(resultDigit);
+		divisionData.addSubtrahend(resultDigit * divider, offset);
+		divisionData.addDifference(dividend - resultDigit * divider, offset);
+		return divisionData;
 	}
-	
 }
