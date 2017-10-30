@@ -29,13 +29,39 @@ public class LongDivisionTest {
 	}
 	
 	@Test
-	public void testDivideDividerBiggerThanDividend() {
+	public void testDivideWithNoPeriod() {
 		LongDivision test = new LongDivision();
-		DivisionData divisionData = test.divide(2, 8);
+		DivisionData divisionData = test.divide(78459, 4);
 		DivisionFormatter divisionFormatter = new DivisionFormatter();
-		assertEquals(" 2|8\n" + 
-				"-0|0\n" + 
-				" 2", divisionFormatter.formatData(divisionData));
+		assertEquals(" 78459|4\n" + 
+				"-4    |19614.75\n" + 
+				" 38\n" + 
+				"-36\n" + 
+				"  24\n" + 
+				" -24\n" + 
+				"    5\n" + 
+				"   -4\n" + 
+				"    19\n" + 
+				"   -16\n" + 
+				"     30\n" + 
+				"    -28\n" + 
+				"      20\n" + 
+				"     -20\n" + 
+				"       0", divisionFormatter.formatData(divisionData));
+	}
+	
+	@Test
+	public void testDivideWithPeriod() {
+		LongDivision test = new LongDivision();
+		DivisionData divisionData = test.divide(100, 3);
+		DivisionFormatter divisionFormatter = new DivisionFormatter();
+		assertEquals(" 100|3\n" + 
+				" -9 |33.(3)\n" + 
+				"  10\n" + 
+				"  -9\n" + 
+				"   10\n" + 
+				"   -9\n" + 
+				"    1", divisionFormatter.formatData(divisionData));
 	}
 
 }

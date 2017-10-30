@@ -9,6 +9,7 @@ public class DivisionData {
 	int firstScale;
 	ArrayList<Integer> subtrahend = new ArrayList<Integer>();
 	ArrayList<Integer> difference = new ArrayList<Integer>();
+	String period = "";
 	private static final int NUMERAL_SYSTEM = 10;
 	
 	public DivisionData(int dividend, int divider) {
@@ -24,6 +25,10 @@ public class DivisionData {
 		result += digit;
 	}
 	
+	public void addPeriodDigit(int digit) {
+		period += digit;
+	}
+	
 	public void addSubtrahend(int subtrahend, int offset) {
 		this.subtrahend.add(subtrahend / calculateScale(offset));
 	}
@@ -33,6 +38,9 @@ public class DivisionData {
 	}
 	
 	private int calculateScale(int offset) {
+		if (offset < 1) {
+			return 1;
+		}
 		return (int) Math.pow(NUMERAL_SYSTEM, offset);
 	}
 }

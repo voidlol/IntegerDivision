@@ -11,7 +11,9 @@ public class DivisionFormatter {
 		String[] subtrahend = null;
 		String dividend = null;
 		String result = null;
+		String period = null;
 		String firstScale = null;
+		period = divisionData.period;
 		divider = "" + divisionData.divider;
 		firstScale = "" + divisionData.firstScale;
 		result = divisionData.result;
@@ -24,12 +26,20 @@ public class DivisionFormatter {
 		for (int i = 0; i < subtrahend.length; i++) {
 			subtrahend[i] = Integer.toString(divisionData.subtrahend.get(i));
 		}
+		if (period.length() < 10 && !difference[difference.length - 1].equals("0")) {
+			period = "(" + period + ")";
+		}
 		StringBuilder output = new StringBuilder();
 		int spacesCount = firstScale.length() - subtrahend[0].length();
 		output.append(" " + dividend + "|" + divider + "\n");
 		output.append(multiplySpace(spacesCount));
 		output.append("-" + subtrahend[0]).append(multiplySpace(dividend.length() - subtrahend[0].length() - spacesCount));
-		output.append("|" + result + "\n");
+		if (period.equals("")) {
+			output.append("|" + result + "\n");
+		}
+		else {
+			output.append("|" + result + "." + period + "\n");
+		}
 		int iterator;
 		for (iterator = 1; iterator < subtrahend.length; iterator++) {
 			spacesCount += subtrahend[iterator - 1].length() - difference[iterator - 1].length() + 1;
