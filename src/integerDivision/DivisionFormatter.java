@@ -35,10 +35,11 @@ public class DivisionFormatter {
 			spacesCount += subtrahend[iterator - 1].length() - difference[iterator - 1].length() + 1;
 			output.append(multiplySpace(spacesCount + 1));
 			output.append(difference[iterator - 1] + "\n");
-			output.append(multiplySpace(spacesCount + difference[iterator - 1].length() - subtrahend[iterator].length()));
+			spacesCount += difference[iterator - 1].length() - subtrahend[iterator].length();
+			output.append(multiplySpace(spacesCount));
 			output.append("-" + subtrahend[iterator] + "\n");
 		}
-		spacesCount += subtrahend[iterator - 1].length() - difference[iterator - 1].length() + 2;
+		spacesCount += subtrahend[iterator - 1].length() - difference[iterator - 1].length() + 1;
 		output.append(multiplySpace(spacesCount)).append(difference[iterator - 1]);
 		return output.toString();
 	}
