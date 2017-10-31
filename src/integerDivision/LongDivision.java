@@ -21,7 +21,7 @@ public class LongDivision {
 			offset++;
 		}
 		divisionData.setFirstScale(dividend, offset);
-		while (offset > -9) {
+		while (offset > -11) {
 			if (offset < 1) {
 				if (offset == 0) {
 					resultDigit = dividend / divider;
@@ -29,7 +29,7 @@ public class LongDivision {
 					divisionData.addSubtrahend(resultDigit * divider, offset);
 					difference = dividend - resultDigit * divider;
 				}
-				if (difference == 0 || periodDifference.contains(difference)) {
+				if (difference == 0 || periodDifference.contains(difference) || offset == -10) {
 					divisionData.addDifference(difference, offset);
 					break;
 				}
