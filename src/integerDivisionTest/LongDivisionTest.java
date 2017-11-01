@@ -63,5 +63,21 @@ public class LongDivisionTest {
 				"   -9\n" + 
 				"    1", divisionFormatter.formatData(divisionData));
 	}
+	
+	@Test
+	public void testDivideWithPeriodInLastDigit() {
+		LongDivision test = new LongDivision();
+		DivisionData divisionData = test.divide(7, 12);
+		DivisionFormatter divisionFormatter = new DivisionFormatter();
+		assertEquals(" 7|12\n" + 
+				"-0|0.58(3)\n" + 
+				" 70\n" + 
+				"-60\n" + 
+				" 100\n" + 
+				" -96\n" + 
+				"   40\n" + 
+				"  -36\n" + 
+				"    4", divisionFormatter.formatData(divisionData));
+	}
 
 }

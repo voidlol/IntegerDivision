@@ -31,6 +31,8 @@ public class LongDivision {
 				}
 				if (difference == 0 || periodDifference.contains(difference) || offset == -10) {
 					divisionData.addDifference(difference, offset);
+					periodDifference.add(difference);
+					divisionData.setPeriodDifference(periodDifference);
 					break;
 				}
 				periodDifference.add(difference);

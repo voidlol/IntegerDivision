@@ -1,5 +1,7 @@
 package integerDivision;
 
+import java.util.ArrayList;
+
 public class DivisionFormatter {
 	
 	public String formatData(DivisionData divisionData) {
@@ -26,20 +28,13 @@ public class DivisionFormatter {
 		for (int i = 0; i < subtrahend.length; i++) {
 			subtrahend[i] = Integer.toString(divisionData.subtrahend.get(i));
 		}
-		if (period.length() < 10 && !difference[difference.length - 1].equals("0")) {
-			period = "(" + period + ")";
-		}
 		StringBuilder output = new StringBuilder();
 		int spacesCount = firstScale.length() - subtrahend[0].length();
 		output.append(" " + dividend + "|" + divider + "\n");
 		output.append(multiplySpace(spacesCount));
 		output.append("-" + subtrahend[0]).append(multiplySpace(dividend.length() - subtrahend[0].length() - spacesCount));
-		if (period.equals("")) {
-			output.append("|" + result + "\n");
-		}
-		else {
-			output.append("|" + result + "." + period + "\n");
-		}
+		period = findPeriod(period, divisionData.periodDifference);
+		output.append("|" + result + period + "\n");
 		int iterator;
 		for (iterator = 1; iterator < subtrahend.length; iterator++) {
 			spacesCount += subtrahend[iterator - 1].length() - difference[iterator - 1].length() + 1;
@@ -52,6 +47,28 @@ public class DivisionFormatter {
 		spacesCount += subtrahend[iterator - 1].length() - difference[iterator - 1].length() + 1;
 		output.append(multiplySpace(spacesCount)).append(difference[iterator - 1]);
 		return output.toString();
+	}
+	
+	private String findPeriod(String period, ArrayList<Integer> periodDifference) {
+		if (period.equals("")) {
+			return period;
+		}
+		int size = periodDifference.size();
+		int index;
+		int lastElement = periodDifference.get(size - 1);
+		if (lastElement == 0) {
+			period = "." + period;
+		}
+		else {
+			for (index = 0; index < size - 1; index++) {
+				if (lastElement == periodDifference.get(index)) {
+					break;
+				}
+			}
+			period = "." + period.substring(0, index) + "(" + period.substring(index, period.length()) + ")"; 
+		}
+		
+		return period;
 	}
 	
 	private String multiplySpace(int amount) {

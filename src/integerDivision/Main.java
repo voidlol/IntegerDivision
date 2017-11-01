@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		LongDivision division = new LongDivision();
-		DivisionData divisionData = division.divide(10007, 2);
+		DivisionData divisionData = division.divide(7, 12);
 		DivisionFormatter divisionFormatter = new DivisionFormatter();
 		System.out.println(divisionFormatter.formatData(divisionData));
 	}
