@@ -65,7 +65,10 @@ public class DivisionFormatter {
 					break;
 				}
 			}
-			period = "." + period.substring(0, index) + "(" + period.substring(index, period.length()) + ")"; 
+			if (index != size - 1)
+				period = "." + period.substring(0, index) + "(" + period.substring(index, period.length()) + ")"; 
+			else
+				period = "." + period;
 		}
 		
 		return period;

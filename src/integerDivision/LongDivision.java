@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class LongDivision {
 	
 	private static final int NUMERAL_SYSTEM = 10;
+	private static final int PRECISION_OF_DIVISION = -10;
 	
 	public DivisionData divide(int dividend, int divider) {
 		if (divider == 0) {
@@ -21,15 +22,15 @@ public class LongDivision {
 			offset++;
 		}
 		divisionData.setFirstScale(dividend, offset);
-		while (offset > -11) {
+		while (offset >= PRECISION_OF_DIVISION) {
+			if (offset == 0) {
+				resultDigit = dividend / divider;
+				divisionData.addResultDigit(resultDigit);
+				divisionData.addSubtrahend(resultDigit * divider, offset);
+				difference = dividend - resultDigit * divider;
+			}
 			if (offset < 1) {
-				if (offset == 0) {
-					resultDigit = dividend / divider;
-					divisionData.addResultDigit(resultDigit);
-					divisionData.addSubtrahend(resultDigit * divider, offset);
-					difference = dividend - resultDigit * divider;
-				}
-				if (difference == 0 || periodDifference.contains(difference) || offset == -10) {
+				if (difference == 0 || periodDifference.contains(difference) || offset == PRECISION_OF_DIVISION) {
 					divisionData.addDifference(difference, offset);
 					periodDifference.add(difference);
 					divisionData.setPeriodDifference(periodDifference);
