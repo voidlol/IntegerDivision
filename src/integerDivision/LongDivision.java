@@ -38,9 +38,9 @@ public class LongDivision {
 				}
 				periodDifference.add(difference);
 				difference *= NUMERAL_SYSTEM;
-				divisionData.addDifference(difference, offset);
 				int periodDigit = difference / divider;
 				divisionData.addPeriodDigit(periodDigit);
+				divisionData.addDifference(difference, offset);
 				divisionData.addSubtrahend(periodDigit * divider, offset);
 				difference -= periodDigit * divider;
 				offset--;
